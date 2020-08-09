@@ -38,7 +38,6 @@ var todoList = {
         trueCounter++;
       }
     }
-    console.log(`${trueCounter}`);
     // but it they're all true...
     if (trueCounter === this.todos.length) {
       for (var k = 0; k < this.todos.length; k++) {
@@ -51,4 +50,15 @@ var todoList = {
     todo.completed = !todo.completed
     this.displayTodos();
   }
+};
+
+window.onload = function() {
+  var displayTodosButton = document.getElementById("displayTodosButton");
+  var toggleAllButton = document.getElementById("toggleAllButton");
+  displayTodosButton.addEventListener('click', () => {
+    todoList.displayTodos();
+  })
+  toggleAllButton.addEventListener('click', () => {
+    todoList.toggleAll();
+  })
 };
