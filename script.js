@@ -52,13 +52,21 @@ var todoList = {
   }
 };
 
-window.onload = function() {
-  var displayTodosButton = document.getElementById("displayTodosButton");
-  var toggleAllButton = document.getElementById("toggleAllButton");
-  displayTodosButton.addEventListener('click', () => {
+
+var displayTodosButton = document.getElementById("displayTodosButton");
+var toggleAllButton = document.getElementById("toggleAllButton");
+displayTodosButton.addEventListener('click', () => {
+  todoList.displayTodos();
+});
+toggleAllButton.addEventListener('click', () => {
+  todoList.toggleAll();
+});
+
+var handlers = {
+  displayTodos: function() {
     todoList.displayTodos();
-  })
-  toggleAllButton.addEventListener('click', () => {
+  },
+  toggleAll: function() {
     todoList.toggleAll();
-  })
+  }
 };
