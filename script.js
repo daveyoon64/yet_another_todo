@@ -52,21 +52,16 @@ var todoList = {
   }
 };
 
-
-var displayTodosButton = document.getElementById("displayTodosButton");
-var toggleAllButton = document.getElementById("toggleAllButton");
-displayTodosButton.addEventListener('click', () => {
-  todoList.displayTodos();
-});
-toggleAllButton.addEventListener('click', () => {
-  todoList.toggleAll();
-});
-
 var handlers = {
   displayTodos: function() {
     todoList.displayTodos();
   },
   toggleAll: function() {
     todoList.toggleAll();
+  },
+  addTodo: function() {
+    var todoInput = document.getElementById("addTodoInput");
+    todoList.addTodo(todoInput.value);
+    todoInput.value = ""; // this sets the input to blank
   }
 };
