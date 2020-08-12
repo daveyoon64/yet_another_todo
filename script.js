@@ -53,31 +53,33 @@ var todoList = {
 };
 
 var handlers = {
-  displayTodos: function() {
-    todoList.displayTodos();
-  },
   toggleAll: function() {
     todoList.toggleAll();
+    view.displayTodos();
   },
   addTodo: function() {
     var todoInput = document.getElementById("addTodoInput");
     todoList.addTodo(todoInput.value);
     todoInput.value = ""; // this sets the input to blank
+    view.displayTodos();
   },
   changeTodo: function() {
     var position = document.getElementById("changeTodoPosition");
     var changeTodoInput = document.getElementById("changeTodoInput");
     todoList.changeTodo(position.valueAsNumber, changeTodoInput.value);
+    view.displayTodos();
   },
   deleteTodo: function() {
     var position = document.getElementById("deleteTodoPosition");
     todoList.deleteTodo(position.valueAsNumber);
     position.value = "";
+    view.displayTodos();
   },
   toggleCompleted: function() {
     var position = document.getElementById("toggleCompletedInput");
     todoList.toggleCompleted(position.valueAsNumber);
     position.value = "";
+    view.displayTodos();
   }
 };
 
@@ -88,7 +90,16 @@ var view = {
     todosUl.innerHTML = '';
     for (var i = 0; i < todoList.todos.length; i++) {
       var todoLi = document.createElement('li');
-      todoLi.textContent = todoList.todos[i].todoText;
+      var todo = todoList.todos[i];
+
+      var todoTextWithCompletion = "";
+      if (todo.completed === true) {
+        todoTextWithCompletion = "(x) " + todo.todoText;
+      } else {
+        todoTextWithCompletion = "( ) " + todo.todoText;
+      }
+
+      todoLi.textContent = todoTextWithCompletion;
       todosUl.appendChild(todoLi);
     }
   }
