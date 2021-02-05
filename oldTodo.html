@@ -2,8 +2,8 @@
 
 <html>
   <head>
+    <title>Practical JavaScript</title>
   </head>
-  
   
   <body>
     <button id='display-todos-button'>Display todos</button>
@@ -38,6 +38,7 @@
         } else {
           todos[position].completed = false;
         }
+
         displayTodos();
       }
 
@@ -49,11 +50,13 @@
 
       function toggleAll() {
         var completedTodos = 0;
+
         for (var i = 0; i < todos.length; i++) {
           if (todos[i].completed === true) {
             completedTodos++;
           } 
         }
+        
         if (completedTodos === todos.length) {
           for (var i = 0; i < todos.length; i++) {
             todos[i].completed = false;
@@ -63,12 +66,14 @@
             todos[i].completed = true;
           }
         }
+
         displayTodos();
       }
 
       var displayTodosButton = document.getElementById('display-todos-button');
-      var toggleAllButton = document.getElementById('toggle-all-button');
       displayTodosButton.addEventListener('click', displayTodos);
+
+      var toggleAllButton = document.getElementById('toggle-all-button');
       toggleAllButton.addEventListener('click', toggleAll);
     </script>
   </body>
