@@ -6,25 +6,14 @@
   </head>
   
   <body>
-    <button id='display-todos-button'>Display todos</button>
     <button id='toggle-all-button'>Toggle All</button>
-    <br>
     <button id='add-button'>Add Todo</button>
     <input id='add-input' type="text">
-    <br>
     <button id='edit-button'>Edit Todo</button>
     <input id='edit-position-input'>
     <input id='edit-text-input'>
-    <br>
-    <button id='remove-button'>Remove Todo</button>
-    <input id='remove-position-input'>
-    <br>
-    <button id='toggle-button'>Toggle Todo</button>
-    <input id='toggle-position-input'>
 
-    <ul id='todo-list-ul'>
-    </ul>
-
+    <ul id='todo-list-ul'></ul>
 
     <script>
       var todos = [
@@ -51,15 +40,14 @@
         displayTodos();
       }
 
-      function remove(position) {
-        var position = removePositionInput.value;
+      function remove(event) {
+        var position = event.currentTarget.id;
         todos.splice(position, 1);
-        removePositionInput.value = '';
         displayTodos();
       }
 
-      function toggle() {
-        var position = togglePositionInput.value;
+      function toggle(event) {
+        var position = event.currentTarget.id;
         if (todos[position].completed === false) {
           todos[position].completed = true;
         } else {
@@ -76,13 +64,27 @@
 
         for (var i = 0; i < todos.length; i++) {
           var newLi = document.createElement('li');
+          var removeButton = document.createElement('button');
+          var toggleButton = document.createElement('button');
+
           if (todos[i].completed === true) {
-            newLi.innerText = '[X] ' + todos[i].todoText;
+            newLi.innerText = '[X] ' + todos[i].todoText + ' ';
           } else {
-            newLi.innerText = '[ ] ' + todos[i].todoText;
+            newLi.innerText = '[ ] ' + todos[i].todoText + ' ';
           }
-          
+          // labelling button
+          toggleButton.innerText = 'Toggle';
+          removeButton.innerText = 'Delete';
+          // adding id to our buttons
+          newLi.id = i;
+          toggleButton.id = i;
+          newLi.appendChild(toggleButton);
+          newLi.appendChild(removeButton);
+          // add event listener
+          toggleButton.addEventListener('click', toggle);
+          removeButton.addEventListener('click', remove);
           todoListUl.appendChild(newLi);
+          
         }
       }
 
@@ -108,25 +110,16 @@
         displayTodos();
       }
 
-      var displayTodosButton = document.getElementById('display-todos-button');
       var toggleAllButton = document.getElementById('toggle-all-button');
       var addTodoButton = document.getElementById('add-button');
       var addInput = document.getElementById('add-input');
       var editTodoButton = document.getElementById('edit-button');
       var editPositionInput = document.getElementById('edit-position-input');
       var editTextInput = document.getElementById('edit-text-input');
-      var removeTodoButton = document.getElementById('remove-button');
-      var removePositionInput = document.getElementById('remove-position-input');
-      var toggleTodoButton = document.getElementById('toggle-button');
-      var togglePositionInput = document.getElementById('toggle-position-input');
 
-      displayTodosButton.addEventListener('click', displayTodos);
       toggleAllButton.addEventListener('click', toggleAll);
       addTodoButton.addEventListener('click', add);
-      editTodoButton.addEventListener('click', edit);
-      removeTodoButton.addEventListener('click', remove);
-      toggleTodoButton.addEventListener('click', toggle);
-      
+      editTodoButton.addEventListener('click', edit); 
     </script>
   </body>
 </html>
