@@ -8,6 +8,24 @@
   <body>
     <button id='display-todos-button'>Display todos</button>
     <button id='toggle-all-button'>Toggle All</button>
+    <br>
+    <button id='add-button'>Add Todo</button>
+    <input id='add-input' type="text">
+    <br>
+    <button id='edit-button'>Edit Todo</button>
+    <input id='edit-position-input'>
+    <input id='edit-text-input'>
+    <br>
+    <button id='remove-button'>Remove Todo</button>
+    <input id='remove-position-input'>
+    <br>
+    <button id='toggle-button'>Toggle Todo</button>
+    <input id='toggle-position-input'>
+
+    <ul id='todo-list-ul'>
+    </ul>
+
+
     <script>
       var todos = [
         {todoText: 'Item 1', completed: false},
@@ -17,34 +35,54 @@
 
       displayTodos();
 
-      function add(initialTodoText, isCompleted) {
+      function add() {
+        var initialTodoText = addInput.value;
         todos.push({todoText: initialTodoText, completed: false});
+        addInput.value = '';
         displayTodos();
       }
 
-      function edit(position, newTodoText) {
+      function edit() {
+        var position = editPositionInput.value;
+        var newTodoText = editTextInput.value;
         todos[position].todoText = newTodoText;
+        editPositionInput.value = '';
+        editTextInput.value = '';
         displayTodos();
       }
 
       function remove(position) {
+        var position = removePositionInput.value;
         todos.splice(position, 1);
+        removePositionInput.value = '';
         displayTodos();
       }
 
-      function toggle(position) {
+      function toggle() {
+        var position = togglePositionInput.value;
         if (todos[position].completed === false) {
           todos[position].completed = true;
         } else {
           todos[position].completed = false;
         }
+        togglePositionInput.value = '';
 
         displayTodos();
       }
 
       function displayTodos() {
+        var todoListUl = document.getElementById('todo-list-ul');
+        todoListUl.innerHTML = "";
+
         for (var i = 0; i < todos.length; i++) {
-          console.log(todos[i]);
+          var newLi = document.createElement('li');
+          if (todos[i].completed === true) {
+            newLi.innerText = '[X] ' + todos[i].todoText;
+          } else {
+            newLi.innerText = '[ ] ' + todos[i].todoText;
+          }
+          
+          todoListUl.appendChild(newLi);
         }
       }
 
@@ -56,7 +94,7 @@
             completedTodos++;
           } 
         }
-        
+
         if (completedTodos === todos.length) {
           for (var i = 0; i < todos.length; i++) {
             todos[i].completed = false;
@@ -71,10 +109,24 @@
       }
 
       var displayTodosButton = document.getElementById('display-todos-button');
-      displayTodosButton.addEventListener('click', displayTodos);
-
       var toggleAllButton = document.getElementById('toggle-all-button');
+      var addTodoButton = document.getElementById('add-button');
+      var addInput = document.getElementById('add-input');
+      var editTodoButton = document.getElementById('edit-button');
+      var editPositionInput = document.getElementById('edit-position-input');
+      var editTextInput = document.getElementById('edit-text-input');
+      var removeTodoButton = document.getElementById('remove-button');
+      var removePositionInput = document.getElementById('remove-position-input');
+      var toggleTodoButton = document.getElementById('toggle-button');
+      var togglePositionInput = document.getElementById('toggle-position-input');
+
+      displayTodosButton.addEventListener('click', displayTodos);
       toggleAllButton.addEventListener('click', toggleAll);
+      addTodoButton.addEventListener('click', add);
+      editTodoButton.addEventListener('click', edit);
+      removeTodoButton.addEventListener('click', remove);
+      toggleTodoButton.addEventListener('click', toggle);
+      
     </script>
   </body>
 </html>
